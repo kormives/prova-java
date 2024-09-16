@@ -1,0 +1,32 @@
+Problema: Sistema de Agendamento de Eventos com Restrições
+Você foi contratado para desenvolver um sistema de agendamento de eventos para uma empresa que organiza eventos corporativos, workshops e reuniões. O sistema deve permitir que clientes registrem eventos.
+Requisitos do Sistema:
+1. Tipos de Eventos:
+Existem três tipos de eventos: Workshop, Reunião e Evento
+Corporativo. Cada tipo de evento tem particularidades:
+Workshop: Possui limite de participantes, máximo de 30.
+Reunião: Pode ser privada (exige senha de acesso) ou pública.
+Evento
+Corporativo:
+Requer reserva de ambiente (por
+exemplo, sala de conferência e área de refeições).
+2. Calendário de Eventos:
+O sistema deve permitir que os eventos sejam agendados em um calendário. Não é necessário usar o tipo Date.
+Requisitos Funcionais:
+• O sistema deve permitir:
+Criar novos eventos com base nas especificações acima.
+Implementar diferentes comportamentos para os tipos de evento sem duplicação de código (aplicar polimorfismo e/ou herança).
+Regras de Negócio:
+Workshop: A função que inscreve participantes deve verificar se o
+numero de participantes naio excede o limite.
+Reunião: Deve permitir criar reuniões públicas ou privadas, e se for privada, o sistema deve ter uma senha de acesso única.
+Requisitos para avaliação:
+1. IMPLEMENTE uma estrutura de classes que represente os diferentes tipos de eventos e as funcionalidades compartilhadas entre eles (2,0 pontos).
+2. ELABORE um fluxo de execução no método main que represente o sistema (1,0 ponto).
+3. USE boas práticas de orientação a objetos, incluindo herança E/OU encapsulamento E/OU polimorfismo (2,0 pontos).
+4. Toda a lógica deve ser implementada.
+
+Pontos de Avaliação:
+Estrutura e clareza do código.
+Aplicação correta dos concertos de orientação a objetos (encapsulamento, herança, polimorfismo).
+Capacidade de implementar lógica de negócios.
