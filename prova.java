@@ -1,128 +1,98 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+class Dispositivo {
+    private String problema;
+    private int prazoMaximoDias;
 
-// Classe base abstrata
-abstract class Evento {
+    public Dispositivo(String problema, int prazoMaximoDias) {
+        this.problema = problema;
+        this.prazoMaximoDias = prazoMaximoDias;
+    }
+
+    public String getProblema() {
+        return problema;
+    }
+
+    public int getPrazoMaximoDias() {
+        return prazoMaximoDias;
+    }
+}
+
+class Smartphone extends Dispositivo {
+    public Smartphone(String problema) {
+        super(problema, 3); // Prazo de 3 dias
+    }
+}
+
+class Notebook extends Dispositivo {
+    public Notebook(String problema) {
+        super(problema, 7); // Prazo de 7 dias
+    }
+}
+
+class Console extends Dispositivo {
+    public Console(String problema) {
+        super(problema, 10); // Prazo de 10 dias
+    }
+}
+
+class Tecnico {
     private String nome;
-    private String data;
+    private String especialidade;
 
-    public Evento(String nome, String data) {
+    public Tecnico(String nome, String especialidade) {
         this.nome = nome;
-        this.data = data;
+        this.especialidade = especialidade;
     }
 
     public String getNome() {
         return nome;
     }
-
-    public String getData() {
-        return data;
-    }
-
-    public abstract void detalhes();
 }
 
-// Classe Workshop
-class Workshop extends Evento {
-    private int maxParticipantes;
-    private List<String> participantes;
+class OrdemServico {
+    private Dispositivo dispositivo;
+    private Tecnico tecnico;
+    private int custo;
+    private boolean aprovado = false;
+    private String status = "Orçamento não aprovado";
 
-    public Workshop(String nome, String data, int maxParticipantes) {
-        super(nome, data);
-        this.maxParticipantes = maxParticipantes;
-        this.participantes = new ArrayList<>();
+    public OrdemServico(Dispositivo dispositivo, Tecnico tecnico) {
+        this.dispositivo = dispositivo;
+        this.tecnico = tecnico;
     }
 
-    public boolean inscreverParticipante(String participante) {
-        if (participantes.size() < maxParticipantes) {
-            participantes.add(participante);
-            System.out.println(participante + " inscrito no workshop.");
-            return true;
-        } else {
-            System.out.println("O número máximo de participantes foi atingido.");
-            return false;
+    public void diagnosticar() {
+        // Definir o custo com base no tipo de dispositivo (exemplo simplificado)
+        if (dispositivo instanceof Smartphone) {
+            this.custo = 300;
+        } else if (dispositivo instanceof Notebook) {
+            this.custo = 200;
+        } else if (dispositivo instanceof Console) {
+            this.custo = 400;
         }
     }
 
-    @Override
-    public void detalhes() {
-        System.out.println("Workshop: " + getNome() + " | Data: " + getData() + " | Participantes: " + participantes.size() + "/" + maxParticipantes);
-    }
-}
-
-// Classe Reuniao
-class Reuniao extends Evento {
-    private boolean isPrivada;
-    private String senha;
-
-    public Reuniao(String nome, String data, boolean isPrivada, String senha) {
-        super(nome, data);
-        this.isPrivada = isPrivada;
-        this.senha = isPrivada ? senha : null;
+    public int getCusto() {
+        return this.custo;
     }
 
-    public boolean acessarReuniao(String senha) {
-        if (isPrivada) {
-            if (this.senha.equals(senha)) {
-                System.out.println("Acesso à reunião privado permitido.");
-                return true;
-            } else {
-                System.out.println("Senha incorreta.");
-                return false;
-            }
-        } else {
-            System.out.println("Reunião pública, acesso permitido.");
-            return true;
-        }
+    public boolean isAprovado() {
+        return this.aprovado;
     }
 
-    @Override
-    public void detalhes() {
-        System.out.println("Reunião: " + getNome() + " | Data: " + getData() + " | Tipo: " + (isPrivada ? "Privada" : "Pública"));
-    }
-}
-
-// Classe Evento Corporativo
-class EventoCorporativo extends Evento {
-    private String ambienteReservado;
-
-    public EventoCorporativo(String nome, String data, String ambienteReservado) {
-        super(nome, data);
-        this.ambienteReservado = ambienteReservado;
+    public void aprovarOrcamento() {
+        this.aprovado = true;
+        this.status = "Em reparo";
     }
 
-    @Override
-    public void detalhes() {
-        System.out.println("Evento Corporativo: " + getNome() + " | Data: " + getData() + " | Ambiente: " + ambienteReservado);
+    public Dispositivo getDispositivo() {
+        return this.dispositivo;
     }
-}
 
-// Classe principal para executar o sistema
-class SistemaDeEventos {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        
-        // Criação de um workshop
-        Workshop workshop = new Workshop("Workshop Java", "12/09/2024", 30);
-        workshop.inscreverParticipante("Ana");
-        workshop.inscreverParticipante("Carlos");
-        workshop.detalhes();
-        
-        // Criação de uma reunião
-        Reuniao reuniaoPublica = new Reuniao("Reunião de Equipe", "13/09/2024", false, "");
-        reuniaoPublica.detalhes();
-        
-        Reuniao reuniaoPrivada = new Reuniao("Reunião de Gerentes", "14/09/2024", true, "12345");
-        System.out.print("Digite a senha para acessar a reunião privada: ");
-        String senha = sc.nextLine();
-        reuniaoPrivada.acessarReuniao(senha);
-        reuniaoPrivada.detalhes();
-        
-        // Criação de um evento corporativo
-        EventoCorporativo eventoCorporativo = new EventoCorporativo("Conferência Anual", "15/09/2024", "Sala de Conferências");
-        eventoCorporativo.detalhes();
-        
-        sc.close();
+    public Tecnico getTecnico() {
+        return this.tecnico;
+    }
+
+    public String getStatus() {
+        return this.status;
     }
 }
