@@ -18,19 +18,19 @@ class Dispositivo {
 
 class Smartphone extends Dispositivo {
     public Smartphone(String problema) {
-        super(problema, 3); // Prazo de 3 dias
+        super(problema, 3);
     }
 }
 
 class Notebook extends Dispositivo {
     public Notebook(String problema) {
-        super(problema, 7); // Prazo de 7 dias
+        super(problema, 7);
     }
 }
 
 class Console extends Dispositivo {
     public Console(String problema) {
-        super(problema, 10); // Prazo de 10 dias
+        super(problema, 10);
     }
 }
 
@@ -61,7 +61,6 @@ class OrdemServico {
     }
 
     public void diagnosticar() {
-        // Definir o custo com base no tipo de dispositivo (exemplo simplificado)
         if (dispositivo instanceof Smartphone) {
             this.custo = 300;
         } else if (dispositivo instanceof Notebook) {
